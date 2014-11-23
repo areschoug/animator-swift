@@ -30,9 +30,10 @@ let secondAnimation = AnimatorObject().duration(0.3).update({ (progress) -> Void
     view.transform = CGAffineTransformMakeScale(scale, scale)
 })
 
-//append the second animation to the first
+//append secondAnimation animation to firstAnimation
 firstAnimation.appendAnimationAfter(secondAnimation)
 
+//secondAnimation animation will automatically start when firstAnimation is completed
 firstAnimation.start()
 ```
 
@@ -64,7 +65,7 @@ AnimatorObject().duration(0.3).update({ (progress) -> Void in
 
 ```swift 
 self.animatorObject = AnimatorObject().duration(3).update({ (progress) -> Void in
-  let scale = CGFloat(progress) //progress is the interplated value
+  let scale = CGFloat(progress)
   view.transform = CGAffineTransformMakeScale(scale, scale)
 })
 

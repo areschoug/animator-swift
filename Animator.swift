@@ -97,14 +97,7 @@ class AnimatorObject:Equatable {
     var completeBlock:((completed:Bool) -> Void)
     
     var started:Bool = false
-    var completed:Bool = false {
-        didSet {
-            
-            for object in afterAnimations {
-                object.start()
-            }
-        }
-    }
+    var completed:Bool = false
     var paused:Bool = false
     
     var afterAnimations:[AnimatorObject] = [AnimatorObject]()
@@ -136,7 +129,9 @@ class AnimatorObject:Equatable {
             self.updateBlock(progress: 1.0)
             self.completed = true
             self.completeBlock(completed: self.completed)
-            
+            for object in afterAnimations {
+                object.start()
+            }
         } else if progress > 0 {
             self.updateBlock(progress: self.interpolator.valueForProgress(progress/self.duration))
         }

@@ -10,7 +10,6 @@ private let _animatorInstance = Animator()
 
 class Animator:NSObject {
     
-    private let fps:CGFloat = 1/60.0
     private var displayLink:CADisplayLink?
     private var animationObjects:[AnimatorObject] = [AnimatorObject]()
     

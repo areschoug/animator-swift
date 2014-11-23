@@ -7,7 +7,6 @@
 import Foundation
 
 class AnimatorInterpolatorBackOut: AnimatorInterpolator {
-    
     init() {
         super.init()
         self.interpolatorBlock = {t in
@@ -17,6 +16,5 @@ class AnimatorInterpolatorBackOut: AnimatorInterpolator {
             return done
         }
     }
-    
-    
 }
+

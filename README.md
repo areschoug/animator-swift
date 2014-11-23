@@ -30,10 +30,10 @@ let secondAnimation = AnimatorObject().duration(0.3).update({ (progress) -> Void
     view.transform = CGAffineTransformMakeScale(scale, scale)
 })
 
-//append secondAnimation animation to firstAnimation
+//append secondAnimation to firstAnimation
 firstAnimation.appendAnimationAfter(secondAnimation)
 
-//secondAnimation animation will automatically start when firstAnimation is completed
+//secondAnimation will automatically start when firstAnimation is completed
 firstAnimation.start()
 ```
 

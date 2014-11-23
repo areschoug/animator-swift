@@ -38,7 +38,6 @@ firstAnimation.start();
 
 #####Easings
 
-Default easings
 ```swift 
 //setup first animation
 AnimatorObject().duration(0.3).update({ (progress) -> Void in

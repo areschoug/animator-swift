@@ -47,7 +47,7 @@ AnimatorObject().duration(0.3).update({ (progress) -> Void in
 }).interpolator(AnimatorInterpolatorBackOut()).start()
 ```
 
-`AnimatorCurves.swift` needs more easing curves
+`AnimatorInterpolatorEasings.swift` needs more easing curves
 
 #####Custom easing
 

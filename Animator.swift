@@ -67,8 +67,6 @@ class Animator:NSObject {
                 NSLog("did remove")
             }
         }
-        
     }
-    
 }
 

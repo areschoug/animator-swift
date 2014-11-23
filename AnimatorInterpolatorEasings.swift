@@ -107,7 +107,7 @@ class AnimatorInterpolatorQuadraticInOut: AnimatorInterpolator {
         self.interpolatorBlock = {t in
             let ft = (t * 2.0)
             if (ft < 1.0){
-                 return 0.5 * ft * ft
+                return 0.5 * ft * ft
             } else {
                 let ftx = ft - 1
                 return -0.5 * ((ftx) * (ftx - 2.0) - 1.0)
@@ -115,7 +115,6 @@ class AnimatorInterpolatorQuadraticInOut: AnimatorInterpolator {
         }
     }
 }
-
 
 class AnimatorInterpolatorQuarticIn: AnimatorInterpolator {
     init() {
@@ -150,7 +149,6 @@ class AnimatorInterpolatorQuarticInOut: AnimatorInterpolator {
         }
     }
 }
-
 
 class AnimatorInterpolatorQuinticIn: AnimatorInterpolator {
     init() {

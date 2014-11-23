@@ -43,7 +43,7 @@ class AnimatorObject:Equatable {
         
         self.progress += add
         
-        let progress = self.progress - delay;
+        let progress = self.progress - delay
         
         if progress > self.duration {
             self.updateBlock(progress: 1.0)
@@ -56,8 +56,6 @@ class AnimatorObject:Equatable {
             self.updateBlock(progress: self.interpolator.valueForProgress(progress/self.duration))
         }
     }
-    
-    
     
     func interpolator(block:((progress:Float) -> Float)) -> AnimatorObject{
         self.interpolator = AnimatorInterpolator(block: block)

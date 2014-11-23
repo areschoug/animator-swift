@@ -33,7 +33,7 @@ let secondAnimation = AnimatorObject().duration(0.3).update({ (progress) -> Void
 //append the second animation to the first
 firstAnimation.appendAnimationAfter(secondAnimation)
 
-firstAnimation.start();
+firstAnimation.start()
 ```
 
 #####Easings

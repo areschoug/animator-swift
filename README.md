@@ -10,7 +10,7 @@ animator-swift
 AnimatorObject().duration(0.3).delay(0.2).update({ (progress) -> Void in //animation progress 0 -> 1
     let scale = CGFloat(progress + 1)
     view.transform = CGAffineTransformMakeScale(scale, scale)
-}).completion({ (completed) -> Void in
+}).completion({ (completed) -> Void in //If stopped completed will be false eles true
     //yay animation is done
 }).start()
 ```
@@ -72,7 +72,7 @@ self.animatorObject = AnimatorObject().duration(3).update({ (progress) -> Void i
 // Start the animation, if paused it resumes it
 self.animatorObject.start()
 
-// Stops the animation and progress get reseted, completion block gets called
+// Stops the animation and progress get reseted, completion block gets called with completed false
 self.animatorObject.stop()
 
 // Pauses the animation with current progress

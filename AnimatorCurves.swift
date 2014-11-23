@@ -1,9 +1,7 @@
 //
 //  AnimatorCurves.swift
-//  pod-ios
 //
 //  Created by areschoug on 20/11/14.
-//  Copyright (c) 2014 areschoug. All rights reserved.
 //
 
 import Foundation

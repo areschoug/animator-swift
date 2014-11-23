@@ -21,13 +21,13 @@ class Animator:NSObject {
         self.displayLink = CADisplayLink(target: self, selector: Selector("update"))
         self.displayLink?.frameInterval = 1
         self.displayLink?.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
-    
+        
     }
     
     private class func sharedInstance() -> Animator{
         return _animatorInstance
     }
-
+    
     class func addAnimatorObject(object:AnimatorObject){
         self.sharedInstance().addAnimatorObject(object)
     }
@@ -36,7 +36,7 @@ class Animator:NSObject {
         object.started = true
         animationObjects.append(object)
     }
-
+    
     class func removeAnimatorObject(object:AnimatorObject){
         self.sharedInstance().addAnimatorObject(object)
     }
@@ -70,7 +70,7 @@ class Animator:NSObject {
                 NSLog("did remove")
             }
         }
-
+        
     }
     
 }
@@ -90,7 +90,7 @@ class AnimatorInterpolator {
 }
 
 class AnimatorObject:Equatable {
-
+    
     var randomId:UInt32
     var progress:Float
     var duration:Float
@@ -117,15 +117,15 @@ class AnimatorObject:Equatable {
         interpolator:AnimatorInterpolator = AnimatorInterpolator(),
         updateBlock:((progress:Float) -> Void) = {value in },
         completionBlock:((completed:Bool) -> Void) = {value in }){
-
+            
             self.randomId = arc4random()
-            self.progress = -delay
+            self.progress = 0
             self.delay = delay
             self.duration = duration
             self.interpolator = interpolator
             self.updateBlock = updateBlock
             self.completeBlock = completionBlock
-        
+            
     }
     
     func addProgress(add:Float){
@@ -133,18 +133,20 @@ class AnimatorObject:Equatable {
         
         self.progress += add
         
-        if self.progress > self.duration {
+        let progress = self.progress - delay;
+        
+        if progress > self.duration {
             self.updateBlock(progress: 1.0)
             self.completed = true
             self.completeBlock(completed: self.completed)
-        
-        } else if self.progress > 0 {
-            self.updateBlock(progress: self.interpolator.valueForProgress(self.progress/self.duration))
+            
+        } else if progress > 0 {
+            self.updateBlock(progress: self.interpolator.valueForProgress(progress/self.duration))
         }
     }
     
-
-
+    
+    
     func interpolator(block:((progress:Float) -> Float)) -> AnimatorObject{
         self.interpolator = AnimatorInterpolator(block: block)
         return self
@@ -154,17 +156,17 @@ class AnimatorObject:Equatable {
         self.interpolator = interpolator
         return self
     }
-
+    
     func delay(delay:Float) -> AnimatorObject {
         self.delay = delay
         return self
     }
-
+    
     func duration(duration:Float) -> AnimatorObject {
         self.duration = duration
         return self
     }
-
+    
     func completionBlock(block:((completed:Bool) -> Void)) -> AnimatorObject {
         return self.completion(block)
     }
@@ -173,7 +175,7 @@ class AnimatorObject:Equatable {
         self.completeBlock = block
         return self
     }
-
+    
     func updateBlock(block:((progress:Float) -> Void)) -> AnimatorObject {
         return self.update(block)
     }
@@ -190,7 +192,7 @@ class AnimatorObject:Equatable {
         
         return self
     }
-
+    
     func start(){
         if started { self.paused = false}
         else { Animator.addAnimatorObject(self) }

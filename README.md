@@ -78,9 +78,6 @@ self.animatorObject.stop()
 // Pauses the animation with current progress
 self.animatorObject.pause()
 
-// Pause the animation with current progress
-self.animatorObject.pause()
-
 ```
 
 ## License

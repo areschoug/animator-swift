@@ -3,7 +3,7 @@ animator-swift
 
 `THIS IS WORK IN PROGRESS`
 
-####Usage
+##Usage
 
 #####Simple
 ```swift 
@@ -82,3 +82,7 @@ self.animatorObject.pause()
 self.animatorObject.pause()
 
 ```
+
+## License
+
+MIT License. See the LICENSE file for more info.

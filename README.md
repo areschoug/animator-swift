@@ -7,10 +7,10 @@ animator-swift
 
 #####Simple
 ```swift 
-AnimatorObject().duration(0.3).delay(0.2).update({ (progress) -> Void in //animation progress 0 -> 1
+AnimatorObject().duration(0.3).delay(0.2).update({ progress in //animation progress 0 -> 1
     let scale = CGFloat(progress + 1)
     view.transform = CGAffineTransformMakeScale(scale, scale)
-}).completion({ (completed) -> Void in //If stopped completed will be false eles true
+}).completion({ completed in //If stopped completed will be false eles true
     //yay animation is done
 }).start()
 ```

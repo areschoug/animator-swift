@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import QuartzCore
 
 private let _animatorInstance = Animator()
 
@@ -43,7 +44,7 @@ class Animator:NSObject {
     }
     
     func removeAnimatorObject(object:AnimatorObject){
-        if object.completed {
+        if !object.completed {
             object.completeBlock(completed: false)
             object.completed = true
         }
@@ -62,10 +63,7 @@ class Animator:NSObject {
         }
         
         for object in remove {
-            object.completeBlock(completed: true)
-            if animationObjects.removeObject(object) {
-                NSLog("did remove")
-            }
+            animationObjects.removeObject(object)
         }
     }
 }

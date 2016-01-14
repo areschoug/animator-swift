@@ -45,7 +45,7 @@ class AnimatorObject:Equatable {
         
         let progress = self.progress - delay
         
-        if progress > self.duration {
+        if progress >= self.duration {
             self.updateBlock(progress: 1.0)
             self.completed = true
             self.completeBlock(completed: self.completed)

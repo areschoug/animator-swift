@@ -19,13 +19,13 @@ AnimatorObject().duration(0.3).delay(0.2).update({ (progress) -> Void in //anima
 ```swift 
 
 //setup first animation
-let firstAnimation = AnimatorObject().duration(0.3).update({ (progress) -> Void in
+let firstAnimation = AnimatorObject().duration(0.3).update({ progress in
     let scale = CGFloat(progress)
     view.transform = CGAffineTransformMakeScale(scale, scale)
 })
 
 //setup second animation
-let secondAnimation = AnimatorObject().duration(0.3).update({ (progress) -> Void in
+let secondAnimation = AnimatorObject().duration(0.3).update({ progress in
     let scale = CGFloat(1.0 - progress)
     view.transform = CGAffineTransformMakeScale(scale, scale)
 })
@@ -41,7 +41,7 @@ firstAnimation.start()
 
 ```swift 
 //setup first animation
-AnimatorObject().duration(0.3).update({ (progress) -> Void in
+AnimatorObject().duration(0.3).update({ progress in
     let scale = CGFloat(progress) //progress is the interplated value
     view.transform = CGAffineTransformMakeScale(scale, scale)
 }).interpolator(AnimatorInterpolatorBackOut()).start()
@@ -52,10 +52,10 @@ AnimatorObject().duration(0.3).update({ (progress) -> Void in
 #####Custom easing
 
 ```swift 
-AnimatorObject().duration(0.3).update({ (progress) -> Void in
+AnimatorObject().duration(0.3).update({ progress in
   let scale = CGFloat(progress) //progress is the interplated value
   view.transform = CGAffineTransformMakeScale(scale, scale)
-}).interpolator({ (progress) -> Float in //progress is linear between 0 -> 1
+}).interpolator({ progress -> Float in //progress is linear between 0 -> 1
   //do cool easing math here
   return progress //return value should start on 0 and end on 1
 }).start()
@@ -64,7 +64,7 @@ AnimatorObject().duration(0.3).update({ (progress) -> Void in
 #####Start/stop/pause
 
 ```swift 
-self.animatorObject = AnimatorObject().duration(3).update({ (progress) -> Void in
+self.animatorObject = AnimatorObject().duration(3).update({ progress in
   let scale = CGFloat(progress)
   view.transform = CGAffineTransformMakeScale(scale, scale)
 })

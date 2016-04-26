@@ -16,7 +16,7 @@ class Animator:NSObject {
     
     override init(){
         super.init()
-        self.displayLink = CADisplayLink(target: self, selector: Selector("update"))
+        self.displayLink = CADisplayLink(target: self, selector: #selector(Animator.update))
         self.displayLink?.frameInterval = 1
         self.displayLink?.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
         
@@ -36,7 +36,7 @@ class Animator:NSObject {
     }
     
     class func removeAnimatorObject(object:AnimatorObject){
-        self.sharedInstance().addAnimatorObject(object)
+        self.sharedInstance().removeAnimatorObject(object)
     }
     
     class func removeAllAnimations() {
@@ -46,7 +46,7 @@ class Animator:NSObject {
     func removeAnimatorObject(object:AnimatorObject){
         if !object.completed {
             object.completeBlock(completed: false)
-            object.completed = true
+            object.completeBlock = { x in }
         }
         animationObjects.removeObject(object)
     }

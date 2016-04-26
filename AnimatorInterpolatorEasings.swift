@@ -12,22 +12,22 @@ import Foundation
 import Darwin
 
 class AnimatorInterpolatorBackOut: AnimatorInterpolator {
-    init() {
-        super.init()
-        self.interpolatorBlock = {t in
-            let s:Float = 1.70158
-            let ft = t-1.0
-            let done = (ft * ft * ((s+1.0)*ft + s) + 1.0)
-            return done
-        }
-    }
+	init(factor:Float = 1.70158) {
+		super.init()
+		self.interpolatorBlock = {t in
+			let s:Float = factor
+			let ft = t-1.0
+			let done = (ft * ft * ((s+1.0)*ft + s) + 1.0)
+			return done
+		}
+	}
 }
 
 class AnimatorInterpolatorBackIn: AnimatorInterpolator {
-    init() {
+    init(factor:Float = 1.70158) {
         super.init()
         self.interpolatorBlock = {t in
-            let s:Float = 1.70158
+            let s:Float = factor
             return t*t*((s+1)*t - s)
         }
     }
@@ -37,14 +37,18 @@ class AnimatorInterpolatorBackInOut: AnimatorInterpolator {
     init() {
         super.init()
         self.interpolatorBlock = {t in
-            let s:Float = 1.70158
-            let ft = t * 2
-            let fs = s * 1.525
-            if (ft < 1) {
-                return 0.5*(t*t*((fs+1)*t - s))
-            } else {
-                return 0.5*((ft)*t*((fs+1)*t + s) + 2)
-            }
+
+			let p = t
+
+			if(p < 0.5) {
+				let f:Float = 2 * p;
+				return 0.5 * (f * f * f - f * sin(f * Float(M_PI)))
+			}
+			else
+			{
+				let f:Float = (1 - (2*p - 1));
+				return 0.5 * (1 - (f * f * f - f * sin(f * Float(M_PI)))) + 0.5;
+			}
         }
     }
 }

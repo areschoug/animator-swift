@@ -7,7 +7,7 @@
 import Foundation
 
 class AnimatorObject:Equatable {
-    
+
     var randomId:UInt32
     var progress:Float
     var duration:Float
@@ -19,7 +19,11 @@ class AnimatorObject:Equatable {
     var started:Bool = false
     var completed:Bool = false
     var paused:Bool = false
-    
+	var loop:Bool = false
+	var autoReverse:Bool = false
+
+	private var reverse:Bool = false
+
     var afterAnimations:[AnimatorObject] = [AnimatorObject]()
     
     init(duration:Float = 0.0,
@@ -40,23 +44,63 @@ class AnimatorObject:Equatable {
     
     func addProgress(add:Float){
         if paused { return }
-        
-        self.progress += add
+
+		if reverse {
+			self.progress -= add
+		} else {
+			self.progress += add
+		}
+
         
         let progress = self.progress - delay
         
         if progress >= self.duration {
-            self.updateBlock(progress: 1.0)
-            self.completed = true
-            self.completeBlock(completed: self.completed)
-            for object in afterAnimations {
-                object.start()
-            }
+
+			if autoReverse {
+				if progress > duration {
+					reverse = true
+				}
+			} else {
+				self.updateBlock(progress: 1.0)
+
+				if self.loop {
+					self.reverse = false
+					self.progress = 0
+				} else {
+					self.completed = true
+
+					self.completeBlock(completed: self.completed)
+					self.completeBlock = { x in }
+					for object in afterAnimations {
+						object.start()
+					}
+				}
+
+			}
+
+
+
         } else if progress > 0 {
             self.updateBlock(progress: self.interpolator.valueForProgress(progress/self.duration))
-        }
+		} else if progress < 0 && self.autoReverse {
+			self.updateBlock(progress: 0.0)
+
+			if self.loop {
+				self.reverse = false
+				self.progress = 0
+			} else {
+				self.completed = true
+
+				self.completeBlock(completed: self.completed)
+				self.completeBlock = { x in }
+				for object in afterAnimations {
+					object.start()
+				}
+			}
+
+		}
     }
-    
+
     func interpolator(block:((progress:Float) -> Float)) -> AnimatorObject{
         self.interpolator = AnimatorInterpolator(block: block)
         return self
@@ -76,7 +120,7 @@ class AnimatorObject:Equatable {
         self.duration = duration
         return self
     }
-    
+
     func completionBlock(block:((completed:Bool) -> Void)) -> AnimatorObject {
         return self.completion(block)
     }
